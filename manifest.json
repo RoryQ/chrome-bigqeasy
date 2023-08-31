@@ -4,32 +4,39 @@
   "version": "4.2.0",
   "description": "BigQuery but better 🚀",
   "icons": {
-      "16": "images/icon_16.png",
-      "48": "images/icon_48.png",
-      "128": "images/icon_128.png"
+    "16": "images/icon_16.png",
+    "48": "images/icon_48.png",
+    "128": "images/icon_128.png"
   },
-   "content_scripts": [ {
-    "js": [ "scripts/jquery_3_3_1.js", "scripts/utils.js", "scripts/popup.js", "scripts/inject.js"],
-    "css": ["css/main.css"],
-     "matches": [ "https://console.cloud.google.com/*"]
-  }],
-  "web_accessible_resources": [
+  "content_scripts": [
     {
-      "resources": [ "scripts/jquery_3_3_1.js", "scripts/utils.js", "scripts/inject.js" ],
-      "matches": [ "https://console.cloud.google.com/*" ]
+      "js": ["scripts/jquery_3_3_1.js", "scripts/utils.js", "scripts/popup.js", "scripts/inject.js"],
+      "css": ["css/main.css"],
+      "matches": ["https://console.cloud.google.com/*"]
     }
   ],
-  "author": "Anthony Fernandez - marshallino16",
-  "background": {
-    "service_worker": "scripts/background.js"
+  "web_accessible_resources": [
+    {
+      "resources": ["scripts/jquery_3_3_1.js", "scripts/utils.js", "scripts/inject.js"],
+      "matches": ["https://console.cloud.google.com/*"]
+    }
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "bigquery-easy@example.com"
+    }
   },
   "permissions": [
     "webRequest",
-    "background"
+    "webRequestBlocking",
+    "storage",
+    "activeTab"
   ],
   "host_permissions": [
-    "https://console.cloud.google.com/*",
-    "https://clients6.google.com/*"
-  ]
-  
+    "*://console.cloud.google.com/*",
+    "*://clients6.google.com/*"
+  ],
+  "background": {
+    "scripts": ["scripts/background.js"]
+  }
 }
